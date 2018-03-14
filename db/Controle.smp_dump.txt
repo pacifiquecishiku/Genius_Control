@@ -1,0 +1,9 @@
+
+State Machine - |Controle|AE
+Name AE.Stop AE.Count_Round AE.Play_User AE.Play_FPGA AE.Setup AE.Start 
+AE.Start 0 0 0 0 0 0 
+AE.Setup 0 0 0 0 1 1 
+AE.Play_FPGA 0 0 0 1 0 1 
+AE.Play_User 0 0 1 0 0 1 
+AE.Count_Round 0 1 0 0 0 1 
+AE.Stop 1 0 0 0 0 1 

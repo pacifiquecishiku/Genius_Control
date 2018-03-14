@@ -1,0 +1,24 @@
+|Controle
+Clock => AE~1.DATAIN
+Key0 => AE~3.DATAIN
+Key1 => Selector0.IN3
+Key1 => Selector1.IN3
+Key1 => Selector4.IN3
+Key1 => Selector0.IN1
+Key1 => Selector1.IN1
+Key1 => Selector2.IN3
+Key1 => PE.OUTPUTSELECT
+Key1 => PE.OUTPUTSELECT
+Key1 => PE.Count_Round.DATAB
+End_Game => p2.IN0
+End_Time => p2.IN1
+End_Round => Selector3.IN3
+End_Round => Selector2.IN2
+C <= C.DB_MAX_OUTPUT_PORT_TYPE
+R <= R.DB_MAX_OUTPUT_PORT_TYPE
+Ea <= Ea.DB_MAX_OUTPUT_PORT_TYPE
+Eb <= Eb.DB_MAX_OUTPUT_PORT_TYPE
+Ec <= Ec.DB_MAX_OUTPUT_PORT_TYPE
+Ed <= Ed.DB_MAX_OUTPUT_PORT_TYPE
+
+
