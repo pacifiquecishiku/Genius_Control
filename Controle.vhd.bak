@@ -1,0 +1,96 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity Controle is
+port(
+		Clock, Key0, Key1, Conta_end : in std_logic;
+		Rst: out std_logic_vector(7 downto 0);
+		Enable0, Enable1, Enable2, Enable4, Enable5, Enable6, Enable7: out std_logic
+		);
+end entity;
+
+architecture FSM_Controle of Controle is
+
+type states is (Inicio, Setup, Game, Selec);
+signal EA, PE : states;
+
+begin
+
+p1: process (Clock, Key0)
+		begin
+			if Key0 = '0' then
+				EA <= Inicio;
+			elsif rising_edge(Clock) then
+				EA <= PE;
+			end if;
+		end process;
+		
+p2: process (EA, Key1, Conta_end)
+		begin
+			case EA is
+				when Inicio =>	-----------------
+					Rst <= "01111111";
+					Enable0 <= '0';
+					Enable1 <= '0';
+					Enable2 <= '0';
+					Enable4 <= '0';
+					Enable5 <= '0';
+					Enable6 <= '0';
+					Enable7 <= '1';
+					if Key1 = '0' then
+						PE <= Setup;
+					else
+						PE <= Inicio;
+					end if;
+					
+				when Setup =>	-----------------
+					Rst <= "01111101";
+					Enable0 <= '0';
+					Enable1 <= '1';
+					Enable2 <= '0';
+					Enable4 <= '0';
+					Enable5 <= '0';
+					Enable6 <= '0';
+					Enable7 <= '1';
+					
+					if Key1 = '0' then
+						PE <= Game;
+					else 
+						PE <= Setup;
+					end if;
+					
+				when Game =>	-----------------
+					Rst <= "01000000";
+					Enable0 <= '1';
+					Enable1 <= '1';
+					Enable2 <= '1';
+					Enable4 <= '1';
+					Enable5 <= '1';
+					Enable6 <= '0';
+					Enable7 <= '0';
+					
+					if Conta_end = '1' then
+						PE <= Selec;
+					else 
+						PE <= Game;
+					end if;
+					
+				when Selec =>	----------------
+					Rst <= "10000111";
+					Enable0 <= '0';
+					Enable1 <= '0';
+					Enable2 <= '0';
+					Enable4 <= '1';
+					Enable5 <= '1';
+					Enable6 <= '1';
+					Enable7 <= '0';
+					
+					if Key1 = '0' then
+						PE <= Inicio;
+					else 
+						PE <= Selec;
+					end if;
+					
+			end case;
+		end process;
+end FSM_Controle;
